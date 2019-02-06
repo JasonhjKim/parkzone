@@ -4,7 +4,7 @@ Some sorta of application description
 
 ## Installation
 
-1. clone this repositor ```git clone ```
+1. clone this repositor ```git clone https://github.com/JasonhjKim/parkzone/ ```
 2. cd folder
 3. install dependencies by ```npm install```
 4. run ```react-native run-ios``` or ```react-native run-android```
