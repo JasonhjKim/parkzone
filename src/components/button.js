@@ -26,7 +26,7 @@ const StyledButton = styled.TouchableOpacity`
 `;
 
 const StyledText = styled.Text`
-    font-size: 16px;
+    font: 16px roboto;
     color: ${props => props.color};
 `;
 

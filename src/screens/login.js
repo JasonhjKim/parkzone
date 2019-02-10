@@ -4,13 +4,13 @@ import styled from 'styled-components/native';
 import FullView from '../components/fullView';
 import TextInput from '../components/textInput';
 import Button from '../components/button';
-import primary from '../commons/color';
+import { primary } from '../commons/color';
 export default class Login extends Component {
     render() {
         return(
             <StyledFullView>
                 <InternalView>
-                    <Title color={ primary }>Login</Title>
+                    <Title>Login</Title>
                     <TextInputContainer>
                         <TextInput title="Email" />
                         <TextInput title="Password" />
@@ -35,8 +35,8 @@ const InternalView = styled.View`
 `;
 
 const Title = styled.Text`
-    font-size: 45px;
-    color: green;
+    font: 45px roboto;
+    color: ${primary};
 `;
 
 const TextInputContainer = styled.View`

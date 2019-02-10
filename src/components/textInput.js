@@ -19,23 +19,23 @@ export default class TextInput extends Component {
 }
 
 const TextInputContainer = styled(FullView)`
-    width: auto;
-    height: 70px;   
     flex-direction: column;
     justify-content: space-between;
+    width: auto;
+    height: 55px;
 `
 
 const StyledTextInput = styled.TextInput`
     width: 305px;
-    height: 50px;
+    height: 35px;
     border-bottom-width: 2;
     border-bottom-color: ${props => props.lineColor};
-    font-size: 16px;
+    font: 16px roboto;
     color: ${darkGrey};
 `;
 
 const StyledText = styled.Text`
-    font-size: 16px;
+    font: 16px roboto;
     color: ${primary};
 `;
 
