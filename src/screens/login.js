@@ -7,15 +7,17 @@ import Button from '../components/button';
 import { primary } from '../commons/color';
 export default class Login extends Component {
     render() {
-        return(
+        return (
             <StyledFullView>
-                <InternalView>
+                <TitleContainer>
                     <Title>Login</Title>
+                </TitleContainer>
+                <InternalView>
                     <TextInputContainer>
                         <TextInput title="Email" />
                         <TextInput title="Password" />
                     </TextInputContainer>
-                    <Button title='Login' onPress={ () => this.props.navigation.navigate("Register")}/>
+                    <Button title='Login' onPress={ () => this.props.navigation.navigate("Register") } />
                 </InternalView>
             </StyledFullView>
         )
@@ -23,15 +25,15 @@ export default class Login extends Component {
 }
 
 const StyledFullView = styled(FullView)`
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 `;
 
-const InternalView = styled.View`
-    width: auto;
-    height: 400px;
+const TitleContainer = styled.View`
+    width: 305px;
+    margin: 15px 0;
     flex-direction: column;
-    justify-content: space-between;
 `;
 
 const Title = styled.Text`
@@ -39,7 +41,15 @@ const Title = styled.Text`
     color: ${primary};
 `;
 
+const InternalView = styled.View`
+    width: auto;
+    height: 260px;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
+
 const TextInputContainer = styled.View`
-    height: 180px;
+    height: 140px;
     justify-content: space-between;
 `;

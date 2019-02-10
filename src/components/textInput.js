@@ -6,13 +6,24 @@ import { primary, lightGrey, darkGrey, red } from '../commons/color';
 import FullView from './fullView';
 
 export default class TextInput extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputState: 'default',
+            text: '',
+        }
+    }
+
     render() {
-        const { theme, title } = this.props
-        const { lineColor } = textInputStyles[theme]
+        const { title } = this.props;
+        const { lineColor } = textInputStates[this.state.inputState];
         return(
             <TextInputContainer>
                 <StyledText>{title}</StyledText>
-                <StyledTextInput lineColor={ lineColor } />
+                <StyledTextInput lineColor={ lineColor } 
+                onFocus={ () => this.setState({ inputState: 'focused' }) }
+                onBlur={ () => this.setState({ inputState: 'default' }) } 
+                onChangeText={ (text) => this.setState({ text }) }/>
             </TextInputContainer>
         )
     }
@@ -27,7 +38,7 @@ const TextInputContainer = styled(FullView)`
 
 const StyledTextInput = styled.TextInput`
     width: 305px;
-    height: 35px;
+    height: 40px;
     border-bottom-width: 2;
     border-bottom-color: ${props => props.lineColor};
     font: 16px roboto;
@@ -39,7 +50,7 @@ const StyledText = styled.Text`
     color: ${primary};
 `;
 
-const textInputStyles = {
+const textInputStates = {
     default: {
         lineColor: lightGrey,
     },
@@ -47,11 +58,10 @@ const textInputStyles = {
         lineColor: primary,
     },
     error: {
-        color: red,
+        lineColor: red,
     }
 }
 
 TextInput.defaultProps = {
-    title: "TextInput",
-    theme: "default"
+    title: "TextInput"
 }
