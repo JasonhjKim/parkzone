@@ -20,7 +20,9 @@ export default class TextInput extends Component {
 
 const TextInputContainer = styled(FullView)`
     width: auto;
-    height: 75px;   
+    height: 70px;   
+    flex-direction: column;
+    justify-content: space-between;
 `
 
 const StyledTextInput = styled.TextInput`
@@ -34,7 +36,7 @@ const StyledTextInput = styled.TextInput`
 
 const StyledText = styled.Text`
     font-size: 16px;
-    color: ${red};
+    color: ${primary};
 `;
 
 const textInputStyles = {
@@ -50,5 +52,6 @@ const textInputStyles = {
 }
 
 TextInput.defaultProps = {
+    title: "TextInput",
     theme: "default"
 }

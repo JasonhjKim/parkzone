@@ -26,6 +26,7 @@ const StyledButton = styled.TouchableOpacity`
 `;
 
 const StyledText = styled.Text`
+    font-size: 16px;
     color: ${props => props.color};
 `;
 

@@ -12,8 +12,8 @@ export default class Login extends Component {
                 <InternalView>
                     <Title color={ primary }>Login</Title>
                     <TextInputContainer>
-                        <TextInput style={{ marginBottom: '5px'}}/>
-                        <TextInput />
+                        <TextInput title="Email" />
+                        <TextInput title="Password" />
                     </TextInputContainer>
                     <Button title='Login' onPress={ () => this.props.navigation.navigate("Register")}/>
                 </InternalView>
@@ -40,6 +40,6 @@ const Title = styled.Text`
 `;
 
 const TextInputContainer = styled.View`
-    height: 160px;
+    height: 180px;
     justify-content: space-between;
 `;
