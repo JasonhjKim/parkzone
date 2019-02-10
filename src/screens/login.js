@@ -1,13 +1,45 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import styled from 'styled-components/native';
 
+import FullView from '../components/fullView';
+import TextInput from '../components/textInput';
+import Button from '../components/button';
+import primary from '../commons/color';
 export default class Login extends Component {
     render() {
         return(
-            <View>
-                <Text>This is the login screen</Text>
-                <Button title="To Register" onPress={ () => this.props.navigation.navigate("Register")}></Button>
-            </View>
+            <StyledFullView>
+                <InternalView>
+                    <Title color={ primary }>Login</Title>
+                    <TextInputContainer>
+                        <TextInput style={{ marginBottom: '5px'}}/>
+                        <TextInput />
+                    </TextInputContainer>
+                    <Button title='Login' onPress={ () => this.props.navigation.navigate("Register")}/>
+                </InternalView>
+            </StyledFullView>
         )
     }
 }
+
+const StyledFullView = styled(FullView)`
+    align-items: center;
+    justify-content: center;
+`;
+
+const InternalView = styled.View`
+    width: auto;
+    height: 400px;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
+const Title = styled.Text`
+    font-size: 45px;
+    color: green;
+`;
+
+const TextInputContainer = styled.View`
+    height: 160px;
+    justify-content: space-between;
+`;
