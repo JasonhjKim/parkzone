@@ -7,7 +7,7 @@ import StyledButton from '../components/button';
 
 export default class Landing extends React.Component {
     render() {
-        console.log (this.props)
+        console.log ( this.props )
         return (
             <StyledFullView>
                 {/* <LogoContainer> */}
@@ -15,13 +15,13 @@ export default class Landing extends React.Component {
                 {/* </LogoContainer> */}
                 <ChildContainer>
                     <StyledButton
-                        title= "Login"
-                        onPress={() => this.props.navigation.navigate("Login")}
-                        theme= 'secondary'
+                        title = "Login"
+                        onPress ={() => this.props.navigation.navigate( "Login" )}
+                        theme = 'secondary'
                     />
                     <StyledButton 
-                        title= "Register"
-                        onPress={() => this.props.navigation.navigate("Register")}
+                        title = "Register"
+                        onPress ={() => this.props.navigation.navigate( "Register" )}
                     />
                 </ChildContainer>
             </StyledFullView>
@@ -29,7 +29,7 @@ export default class Landing extends React.Component {
     }
 }
 
-const StyledFullView = styled(FullView)`
+const StyledFullView = styled( FullView )`
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
