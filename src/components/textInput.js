@@ -10,22 +10,31 @@ export default class TextInput extends Component {
         super(props);
         this.state = {
             inputState: 'default',
-            text: '',
         }
     }
 
     render() {
-        const { title } = this.props;
+        const { title, value, onChangeText } = this.props;
         const { lineColor } = textInputStates[this.state.inputState];
         return(
             <TextInputContainer>
                 <StyledText>{title}</StyledText>
-                <StyledTextInput lineColor={ lineColor } 
-                onFocus={ () => this.setState({ inputState: 'focused' }) }
-                onBlur={ () => this.setState({ inputState: 'default' }) } 
-                onChangeText={ (text) => this.setState({ text }) }/>
+                <StyledTextInput 
+                value={ value }
+                lineColor={ lineColor } 
+                onFocus={ this.focus }
+                onBlur={ this.blur } 
+                onChangeText={ onChangeText }/>
             </TextInputContainer>
         )
+    }
+
+    focus = () => {
+        this.setState({ inputState: 'focused' })
+    }
+
+    blur = () => {
+        this.setState({ inputState: 'default' })
     }
 }
 

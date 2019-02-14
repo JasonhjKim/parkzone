@@ -6,7 +6,19 @@ import TextInput from '../components/textInput';
 import Button from '../components/button';
 import { primary } from '../commons/color';
 export default class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            password: '',
+        }
+    }
+
     render() {
+        if (this.props.authenticated) {
+            this.props.navigation.navigate("Register")
+        }
+
         return (
             <StyledFullView>
                 <TitleContainer>
@@ -14,13 +26,32 @@ export default class Login extends Component {
                 </TitleContainer>
                 <InternalView>
                     <TextInputContainer>
-                        <TextInput title="Email" />
-                        <TextInput title="Password" />
+                        <TextInput title="Email" value={ this.state.email } onChangeText={ this.onChangeEmail } />
+                        <TextInput title="Password" value={ this.state.password } onChangeText={ this.onChangePassword } />
                     </TextInputContainer>
-                    <Button title='Login' onPress={ () => this.props.navigation.navigate("Register") } />
+                    <Button title='Login' onPress={ this.login } />
                 </InternalView>
+
+                <Title>{this.props.err}</Title>
+                <OverrideButton title='Override to go to register' onPress={ () => this.props.navigation.navigate("Register") } />
             </StyledFullView>
         )
+    }
+
+    onChangeEmail = (email) => {
+        this.setState({ email })
+    }
+
+    onChangePassword = (password) => {
+        this.setState({ password })
+    }
+
+    login = () => {
+        const payload = { 
+            email: this.state.email, 
+            password: this.state.password,
+        }
+        this.props.loginUser(payload)
     }
 }
 
@@ -48,8 +79,11 @@ const InternalView = styled.View`
     justify-content: space-between;
 `;
 
-
 const TextInputContainer = styled.View`
     height: 140px;
     justify-content: space-between;
 `;
+
+const OverrideButton = styled(Button)`
+    margin-top: 100px;
+`
