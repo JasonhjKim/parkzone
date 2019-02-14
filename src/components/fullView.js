@@ -13,4 +13,4 @@ const StyledFullView = styled.View`
     width: 100%;
     height: 100%;
     flex-direction: column;
-`;
+`

@@ -11,6 +11,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.8.1",
+    "react-copy-button-wrapper": "0.0.6",
     "react-native": "^0.58.3",
     "react-native-gesture-handler": "^1.0.15",
     "react-navigation": "^3.1.4",

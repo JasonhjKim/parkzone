@@ -23,6 +23,7 @@ const StyledButton = styled.TouchableOpacity`
     border-radius: 8;
     align-items: center;
     justify-content: center;
+    border: ${props => props.bgc === white ? `1px solid ${primary}`:`0px solid black`}
 `;
 
 const StyledText = styled.Text`
