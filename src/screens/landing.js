@@ -4,6 +4,8 @@ import Logo from '../assets/PPP.png';
 import styled from 'styled-components/native';
 import FullView from '../components/fullView';
 import StyledButton from '../components/button';
+import { View, Text, Button } from 'react-native';
+import { H1 } from '../commons/fontSize';
 
 export default class Landing extends React.Component {
     render() {

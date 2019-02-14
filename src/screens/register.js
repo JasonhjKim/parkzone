@@ -11,7 +11,7 @@ export default class Register extends Component {
                 <TextInput placeholder="Email" textContentType="emailAddress"/>
                 <TextInput placeholder="Password" textContentType="password"/>
                 <TextInput placeholder="Confirm Password" textContentType="password"/>
-                <Button title="To Landing" onPress={ () => this.props.navigation.navigate("Landing")}></Button>
+                <Button title="To Example" onPress={ () => this.props.navigation.navigate("Example")}></Button>
             </View>
         )
     }

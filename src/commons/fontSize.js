@@ -61,4 +61,3 @@ export const T = (props) => (
 
 export const P = (props) => (
     <Text {...props} style={{fontSize: calculateSize(12), color: props.color ? props.color : "black" }}></Text>
-)

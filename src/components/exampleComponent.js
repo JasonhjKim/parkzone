@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { H1 } from '../commons/fontSize';
 
 
 /**
@@ -21,6 +22,7 @@ export default class exampleComponent extends Component {
         return(
             <View>
                 <Text>Class Component</Text>
+                <H1>Some shit</H1>
             </View>
         )
     }
