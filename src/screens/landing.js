@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
-// import Logo from './assets/PPP.png';
+import Logo from '../assets/PPP.png';
 import styled from 'styled-components/native';
-import { primary } from '../commons/color';
-import { white } from '../commons/color';
 import FullView from '../components/fullView';
 import StyledButton from '../components/button';
 
@@ -12,16 +10,18 @@ export default class Landing extends React.Component {
         console.log (this.props)
         return (
             <StyledFullView>
+                {/* <LogoContainer> */}
+                        {/* <Image source={Logo} style={StyleSheet.image}/> */}
+                {/* </LogoContainer> */}
                 <ChildContainer>
-                    {/* <Image source={ Logo } style={ styles.image }/> */}
                     <StyledButton
                         title= "Login"
                         onPress={() => this.props.navigation.navigate("Login")}
+                        theme= 'secondary'
                     />
                     <StyledButton 
                         title= "Register"
                         onPress={() => this.props.navigation.navigate("Register")}
-                        theme= 'secondary'
                     />
                 </ChildContainer>
             </StyledFullView>
@@ -30,18 +30,25 @@ export default class Landing extends React.Component {
 }
 
 const StyledFullView = styled(FullView)`
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    display: flex;
     flex-direction: column;
 `
 const ChildContainer = styled.View`
-    width: 100%;
-    align-items:center;
-    display: flex;
+    width: auto;
+    height:115px;
     flex-direction: column;
-    margin: 10%;
+    justify-content: space-between;
+    margin: 325px;
 `
+// const LogoContainer = styled.View`
+    // width:100px;
+    // height: 100px;
+    // margin: 15px 0;
+    // flex-direction: column;
+// `
+
+
 
 // const Logo = require ('../assets/PPP.png');
 // const LogoImage = styled.Image`
