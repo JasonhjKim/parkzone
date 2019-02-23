@@ -11,5 +11,7 @@ export default auth = (state = {}, action) => {
             return { ...state, authenticated: false }
         case AUTH_ERROR:
             return { ...state, error: action.payload.err }
+        default: 
+            return state
     }
 }

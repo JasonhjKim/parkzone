@@ -17,7 +17,7 @@ const logger = createLogger({
     duration: true,
 })
 
-const store = createStore( state => state, compose(applyMiddleware(reduxThunk, logger)))
+const store = createStore( reducers, compose(applyMiddleware(reduxThunk, logger)))
 
 class Main extends Component {
     render() {
