@@ -1,43 +1,50 @@
 import axios from 'axios';
 
-import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './constants'
+import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './constants';
+import BASE_URL from '../commons/secret';
 
 const instance = axios.create({
-    baseURL: '159.65.69.12:3000',
+    baseURL: BASE_URL,
     timeout: 1000,
 })
 
-const authUser = (status, data) => {
+const authUser = (data) => {
     return {
         type: AUTH_USER,
-        status,
-        payload: {
-            _id: data._id,
-            token: data.token,
-        }
+        token: data.token,
+        message: data.message
     }
 }
 
-const authError = (status, data) => {
+const authError = (data) => {
     return {
         type: AUTH_ERROR,
-        status, 
-        payload: {
-            err: data.err
-        }
+        message: data.message
     }
 }
 
 export const loginUser = (payload) => {
-    return (dispatch) => {
-        instance.post('/login', payload)
-        .then(response => { // If it was successful
-            dispatch(authUser(response.status, response.data))
+    return (dispatch) => instance.post('/login', payload)
+        .then(response => {
+            console.log(response.data);
+            console.log(response.status);
+            console.log(response.statusText);
+            console.log(response.headers);
+            console.log(response.config);
+            if (response.data.auth) {
+                dispatch(authUser(response.data))
+            } else {
+                dispatch(authError(response.data))
+            }
         })
-        .catch(error => { // If it fails
-            dispatch(authError(response.status, error.response))
+        .catch(error => {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+                dispatch(authError(error.response.data))
+            }
         })
-    }
 }
 
 export const logoutUser = () => {

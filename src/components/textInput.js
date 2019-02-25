@@ -6,25 +6,27 @@ import { primary, lightGrey, darkGrey, red } from '../commons/color';
 import FullView from './fullView';
 
 export default class TextInput extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputState: 'default',
-        }
+    state = {
+        inputState: 'default'
     }
 
     render() {
-        const { title, value, onChangeText } = this.props;
-        const { lineColor } = textInputStates[this.state.inputState];
-        return(
+        const { title, value, type, onChangeText, error } = this.props;
+        const { lineColor } = error ? textInputStates.error : textInputStates[this.state.inputState];
+        return (
             <TextInputContainer>
                 <StyledText>{title}</StyledText>
-                <StyledTextInput 
-                value={ value }
-                lineColor={ lineColor } 
-                onFocus={ this.focus }
-                onBlur={ this.blur } 
-                onChangeText={ onChangeText }/>
+                <StyledTextInput
+                    value={value}
+                    autoCapitalize='none'
+                    contentType={type}
+                    secureTextEntry={type == 'password'}
+                    autoCorrect={false}
+                    lineColor={lineColor}
+                    onFocus={this.focus}
+                    onBlur={this.blur}
+                    onChangeText={onChangeText} />
+                {error && <ErrorText>{error}</ErrorText>}
             </TextInputContainer>
         )
     }
@@ -57,6 +59,12 @@ const StyledTextInput = styled.TextInput`
 const StyledText = styled.Text`
     font: 16px roboto;
     color: ${primary};
+`;
+
+const ErrorText = styled.Text`
+    margin-top: 3px;
+    font: 12px roboto;
+    color: ${red};
 `;
 
 const textInputStates = {

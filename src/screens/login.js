@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AsyncStorage } from 'react-native';
 import styled from 'styled-components/native';
 
 import FullView from '../components/fullView';
@@ -6,19 +7,19 @@ import TextInput from '../components/textInput';
 import Button from '../components/button';
 import { primary } from '../commons/color';
 export default class Login extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            email: '',
-            password: '',
+    state = {
+        email: '',
+        password: '',
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.authenticated && this.props.authenticated) {
+            this.props.navigation.navigate("Register")
         }
     }
 
     render() {
-        if (this.props.authenticated) {
-            this.props.navigation.navigate("Register")
-        }
-
+        const { error } = this.props
         return (
             <StyledFullView>
                 <TitleContainer>
@@ -26,14 +27,11 @@ export default class Login extends Component {
                 </TitleContainer>
                 <InternalView>
                     <TextInputContainer>
-                        <TextInput title="Email" value={ this.state.email } onChangeText={ this.onChangeEmail } />
-                        <TextInput title="Password" value={ this.state.password } onChangeText={ this.onChangePassword } />
+                        <TextInput title="Email" type='emailAddress' value={ this.state.email } onChangeText={ this.onChangeEmail } error={ error } />
+                        <TextInput title="Password" type='password' value={ this.state.password } onChangeText={ this.onChangePassword } />
                     </TextInputContainer>
                     <Button title='Login' onPress={ this.login } />
                 </InternalView>
-
-                <Title>{this.props.err}</Title>
-                <OverrideButton title='Override to go to register' onPress={ () => this.props.navigation.navigate("Register") } />
             </StyledFullView>
         )
     }
@@ -63,8 +61,10 @@ const StyledFullView = styled(FullView)`
 
 const TitleContainer = styled.View`
     width: 305px;
-    margin: 15px 0;
+    height: 75px;
+    margin: 30px 0;
     flex-direction: column;
+    justify-content: center;
 `;
 
 const Title = styled.Text`
@@ -80,10 +80,6 @@ const InternalView = styled.View`
 `;
 
 const TextInputContainer = styled.View`
-    height: 140px;
+    height: 150px;
     justify-content: space-between;
 `;
-
-const OverrideButton = styled(Button)`
-    margin-top: 100px;
-`
