@@ -7,11 +7,11 @@ import { B } from '../commons/fontSize';
 
 export default class Button extends Component {
     render() {
-        const { title, onPress, theme, style } = this.props
+        const { title, onPress, theme, style, disabled } = this.props
         const { bgc, color } = buttonThemes[theme]
         return (
             <ButtonWrapper style={style}>
-                <StyledButton bgc={bgc} onPress={onPress}>
+                <StyledButton bgc={bgc} onPress={onPress} disabled={disabled}>
                     <StyledText color={color}>{title}</StyledText>
                 </StyledButton>
             </ButtonWrapper>

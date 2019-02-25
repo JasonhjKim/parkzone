@@ -9,6 +9,7 @@ export default class Login extends Component {
     state = {
         email: '',
         password: '',
+        isDisabled: true
     }
 
     componentDidUpdate(prevProps) {
@@ -28,17 +29,23 @@ export default class Login extends Component {
                     <StyledTextInput title="Email" type='emailAddress' value={this.state.email} onChangeText={this.onChangeEmail} error={error} />
                     <StyledTextInput title="Password" type='password' value={this.state.password} onChangeText={this.onChangePassword} />
                 </TextBoxContainer>
-                <LoginButton title='Login' onPress={this.login} />
+                <LoginButton title='Login' onPress={this.login} disabled={this.state.isDisabled} />
             </StyledFullView>
         )
     }
 
     onChangeEmail = (email) => {
-        this.setState({ email })
+        this.setState({ email, isDisabled: this.shouldBeDisabled(email, this.state.password) })
     }
 
     onChangePassword = (password) => {
-        this.setState({ password })
+        this.setState({ password, isDisabled: this.shouldBeDisabled(this.state.email, password) })
+    }
+
+    shouldBeDisabled = (email, password) => {
+        const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+        return email === null || email.length === 0 || !emailRegex.test(email) ||
+            password === null || password.length === 0
     }
 
     login = () => {
@@ -75,4 +82,5 @@ const StyledTextInput = styled(TextBox)`
 
 const LoginButton = styled(Button)`
     margin: 12% 0;
+    opacity: ${props => props.disabled ? 0.2 : 1};
 `;
