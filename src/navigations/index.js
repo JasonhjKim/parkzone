@@ -5,8 +5,8 @@ import Register from '../screens/register';
 import Example from '../screens/example';
 
 const StackNavigator = createStackNavigator({
-    Landing: Landing,
     Login: Login,
+    Landing: Landing,
     Register: Register,
     Example: Example
 })

@@ -6,7 +6,7 @@ export default auth = (state = {}, action) => {
     switch (action.type) {
         case AUTH_USER:
             AsyncStorage.setItem("token", action.token)
-            return { ...state, error: undefined, authenticated: true }
+            return { ...state, error: '', authenticated: true }
         case UNAUTH_USER:
             return { ...state, authenticated: false }
         case AUTH_ERROR:

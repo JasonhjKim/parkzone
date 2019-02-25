@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 
 import { primary, lightGrey, darkGrey, red } from '../commons/color';
-import FullView from './fullView';
+import { T, P, TextInput } from '../commons/fontSize';
 
-export default class TextInput extends Component {
+export default class TextBox extends Component {
     state = {
         inputState: 'default'
     }
 
     render() {
-        const { title, value, type, onChangeText, error } = this.props;
-        const { lineColor } = error ? textInputStates.error : textInputStates[this.state.inputState];
+        const { title, value, type, onChangeText, error, style } = this.props;
+        const { lineColor } = error ? textBoxStates.error : textBoxStates[this.state.inputState];
         return (
-            <TextInputContainer>
-                <StyledText>{title}</StyledText>
+            <TextBoxContainer style={style}>
+                <T>{title}</T>
                 <StyledTextInput
                     value={value}
                     autoCapitalize='none'
@@ -26,8 +25,8 @@ export default class TextInput extends Component {
                     onFocus={this.focus}
                     onBlur={this.blur}
                     onChangeText={onChangeText} />
-                {error && <ErrorText>{error}</ErrorText>}
-            </TextInputContainer>
+                <ErrorText>{error}</ErrorText>
+            </TextBoxContainer>
         )
     }
 
@@ -40,34 +39,24 @@ export default class TextInput extends Component {
     }
 }
 
-const TextInputContainer = styled(FullView)`
+const TextBoxContainer = styled.View`
     flex-direction: column;
-    justify-content: space-between;
-    width: auto;
-    height: 55px;
-`
+    align-items: stretch;
+`;
 
-const StyledTextInput = styled.TextInput`
-    width: 305px;
+const StyledTextInput = styled(TextInput)`
     height: 40px;
     border-bottom-width: 2;
     border-bottom-color: ${props => props.lineColor};
-    font: 16px roboto;
     color: ${darkGrey};
 `;
 
-const StyledText = styled.Text`
-    font: 16px roboto;
-    color: ${primary};
-`;
-
-const ErrorText = styled.Text`
-    margin-top: 3px;
-    font: 12px roboto;
+const ErrorText = styled(P)`
+    margin-top: 2%;
     color: ${red};
 `;
 
-const textInputStates = {
+const textBoxStates = {
     default: {
         lineColor: lightGrey,
     },
@@ -79,6 +68,6 @@ const textInputStates = {
     }
 }
 
-TextInput.defaultProps = {
+TextBox.defaultProps = {
     title: "TextInput"
 }

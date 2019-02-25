@@ -3,31 +3,36 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 
 import { primary, white, green, red, yellow } from '../commons/color';
+import { B } from '../commons/fontSize';
 
 export default class Button extends Component {
     render() {
-        const { title, onPress, theme } = this.props
+        const { title, onPress, theme, style } = this.props
         const { bgc, color } = buttonThemes[theme]
-        return(
-            <StyledButton bgc={ bgc } onPress={ onPress }> 
-                <StyledText color={ color }>{ title }</StyledText>
-            </StyledButton>
+        return (
+            <ButtonWrapper style={style}>
+                <StyledButton bgc={bgc} onPress={onPress}>
+                    <StyledText color={color}>{title}</StyledText>
+                </StyledButton>
+            </ButtonWrapper>
         )
     }
 }
 
+const ButtonWrapper = styled.View`
+    width: 85%;
+`;
+
 const StyledButton = styled.TouchableOpacity`
-    width: 305px;
     height: 50px;
     background-color: ${props => props.bgc};
     border-radius: 8;
     align-items: center;
     justify-content: center;
-    border: ${props => props.bgc === white ? `1px solid ${primary}`:`0px solid black`}
+    border: ${props => props.bgc === white ? `1px solid ${primary}` : `0px solid black`};
 `;
 
-const StyledText = styled.Text`
-    font: 16px roboto;
+const StyledText = styled(B)`
     color: ${props => props.color};
 `;
 
@@ -52,7 +57,7 @@ const buttonThemes = {
         color: white,
         bgc: yellow,
     }
-  }
+}
 
 
 Button.propTypes = {
@@ -62,6 +67,6 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-    title: "Button", 
+    title: "Button",
     theme: "primary"
 }

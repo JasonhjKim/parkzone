@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
 import styled from 'styled-components/native';
 
 import FullView from '../components/fullView';
-import TextInput from '../components/textInput';
+import TextBox from '../components/textBox';
 import Button from '../components/button';
-import { primary } from '../commons/color';
+import { H1 } from '../commons/fontSize';
 export default class Login extends Component {
     state = {
         email: '',
@@ -25,13 +24,11 @@ export default class Login extends Component {
                 <TitleContainer>
                     <Title>Login</Title>
                 </TitleContainer>
-                <InternalView>
-                    <TextInputContainer>
-                        <TextInput title="Email" type='emailAddress' value={ this.state.email } onChangeText={ this.onChangeEmail } error={ error } />
-                        <TextInput title="Password" type='password' value={ this.state.password } onChangeText={ this.onChangePassword } />
-                    </TextInputContainer>
-                    <Button title='Login' onPress={ this.login } />
-                </InternalView>
+                <TextBoxContainer>
+                    <StyledTextInput title="Email" type='emailAddress' value={this.state.email} onChangeText={this.onChangeEmail} error={error} />
+                    <StyledTextInput title="Password" type='password' value={this.state.password} onChangeText={this.onChangePassword} />
+                </TextBoxContainer>
+                <LoginButton title='Login' onPress={this.login} />
             </StyledFullView>
         )
     }
@@ -45,8 +42,8 @@ export default class Login extends Component {
     }
 
     login = () => {
-        const payload = { 
-            email: this.state.email, 
+        const payload = {
+            email: this.state.email,
             password: this.state.password,
         }
         this.props.loginUser(payload)
@@ -56,30 +53,26 @@ export default class Login extends Component {
 const StyledFullView = styled(FullView)`
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
 `;
 
 const TitleContainer = styled.View`
-    width: 305px;
-    height: 75px;
-    margin: 30px 0;
-    flex-direction: column;
-    justify-content: center;
+    width: 85%;
 `;
 
-const Title = styled.Text`
-    font: 45px roboto;
-    color: ${primary};
+const Title = styled(H1)`
+    font-weight: normal;
+    margin: 6% 0;
 `;
 
-const InternalView = styled.View`
-    width: auto;
-    height: 260px;
-    flex-direction: column;
+const TextBoxContainer = styled.View`
+    width: 85%;
     justify-content: space-between;
 `;
 
-const TextInputContainer = styled.View`
-    height: 150px;
-    justify-content: space-between;
+const StyledTextInput = styled(TextBox)`
+    margin: 2% 0;
+`;
+
+const LoginButton = styled(Button)`
+    margin: 12% 0;
 `;
