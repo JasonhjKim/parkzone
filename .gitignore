@@ -1,3 +1,5 @@
+/src/commons/secret.js
+
 # Xcode
 /ios/build
 !**/*.xcodeproj

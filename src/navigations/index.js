@@ -1,24 +1,14 @@
-import React from 'react';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import Landing from '../screens/landing'
-import Login from '../screens/login'
-import Register from '../screens/register'
-import Example from '../screens/example'
-
+import Landing from '../screens/landing';
+import Login from '../containers/loginContainer';
+import Register from '../screens/register';
+import Example from '../screens/example';
 
 const StackNavigator = createStackNavigator({
-    Landing: {
-        screen: Landing
-    },
-    Login: {
-        screen: Login
-    },
-    Register: {
-        screen: Register
-    },
-    Example: {
-        screen: Example
-    }
+    Login: Login,
+    Landing: Landing,
+    Register: Register,
+    Example: Example
 })
 
 export default createAppContainer(StackNavigator);

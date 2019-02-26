@@ -2,53 +2,55 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 
 import FullView from '../components/fullView';
-import TextInput from '../components/textInput';
+import TextBox from '../components/textBox';
 import Button from '../components/button';
-import { primary } from '../commons/color';
+import { H1 } from '../commons/fontSize';
 export default class Login extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            email: '',
-            password: '',
+    state = {
+        email: '',
+        password: '',
+        isDisabled: true
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.authenticated && this.props.authenticated) {
+            this.props.navigation.navigate("Register")
         }
     }
 
     render() {
-        if (this.props.authenticated) {
-            this.props.navigation.navigate("Register")
-        }
-
+        const { error } = this.props
         return (
             <StyledFullView>
                 <TitleContainer>
                     <Title>Login</Title>
                 </TitleContainer>
-                <InternalView>
-                    <TextInputContainer>
-                        <TextInput title="Email" value={ this.state.email } onChangeText={ this.onChangeEmail } />
-                        <TextInput title="Password" value={ this.state.password } onChangeText={ this.onChangePassword } />
-                    </TextInputContainer>
-                    <Button title='Login' onPress={ this.login } />
-                </InternalView>
-
-                <Title>{this.props.err}</Title>
-                <OverrideButton title='Override to go to register' onPress={ () => this.props.navigation.navigate("Register") } />
+                <TextBoxContainer>
+                    <StyledTextInput title="Email" type='emailAddress' value={this.state.email} onChangeText={this.onChangeEmail} error={error} />
+                    <StyledTextInput title="Password" type='password' value={this.state.password} onChangeText={this.onChangePassword} />
+                </TextBoxContainer>
+                <LoginButton title='Login' onPress={this.login} disabled={this.state.isDisabled} />
             </StyledFullView>
         )
     }
 
     onChangeEmail = (email) => {
-        this.setState({ email })
+        this.setState({ email, isDisabled: this.shouldBeDisabled(email, this.state.password) })
     }
 
     onChangePassword = (password) => {
-        this.setState({ password })
+        this.setState({ password, isDisabled: this.shouldBeDisabled(this.state.email, password) })
+    }
+
+    shouldBeDisabled = (email, password) => {
+        const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+        return email === null || email.length === 0 || !emailRegex.test(email) ||
+            password === null || password.length === 0
     }
 
     login = () => {
-        const payload = { 
-            email: this.state.email, 
+        const payload = {
+            email: this.state.email,
             password: this.state.password,
         }
         this.props.loginUser(payload)
@@ -58,32 +60,27 @@ export default class Login extends Component {
 const StyledFullView = styled(FullView)`
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
 `;
 
 const TitleContainer = styled.View`
-    width: 305px;
-    margin: 15px 0;
-    flex-direction: column;
+    width: 85%;
 `;
 
-const Title = styled.Text`
-    font: 45px roboto;
-    color: ${primary};
+const Title = styled(H1)`
+    font-weight: normal;
+    margin: 6% 0;
 `;
 
-const InternalView = styled.View`
-    width: auto;
-    height: 260px;
-    flex-direction: column;
+const TextBoxContainer = styled.View`
+    width: 85%;
     justify-content: space-between;
 `;
 
-const TextInputContainer = styled.View`
-    height: 140px;
-    justify-content: space-between;
+const StyledTextInput = styled(TextBox)`
+    margin: 2% 0;
 `;
 
-const OverrideButton = styled(Button)`
-    margin-top: 100px;
-`
+const LoginButton = styled(Button)`
+    margin: 12% 0;
+    opacity: ${props => props.disabled ? 0.2 : 1};
+`;

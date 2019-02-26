@@ -1,15 +1,13 @@
-import {AppRegistry} from 'react-native';
-// import App from './app';
-import {name as appName} from '../app.json';
+import { AppRegistry } from 'react-native';
+import { name as appName } from '../app.json';
 import React, { Component } from 'react';
 
 import { Provider } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
-import { applyMiddlware, createStore, compose, applyMiddleware} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import reducers from './reducers';
 
+import reducers from './reducers';
 import AppNavigation from './navigations';
 
 const logger = createLogger({
@@ -17,14 +15,14 @@ const logger = createLogger({
     duration: true,
 })
 
-const store = createStore( state => state, compose(applyMiddleware(reduxThunk, logger)))
+const store = createStore(reducers, applyMiddleware(reduxThunk, logger))
 
 class Main extends Component {
     render() {
-        return(
-            <Provider store={ store }>
-                <AppNavigation/>
-            </Provider>        
+        return (
+            <Provider store={store}>
+                <AppNavigation />
+            </Provider>
         )
     }
 }
