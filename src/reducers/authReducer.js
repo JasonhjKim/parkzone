@@ -10,7 +10,7 @@ export default auth = (state = {}, action) => {
         case UNAUTH_USER:
             return { ...state, authenticated: false }
         case AUTH_ERROR:
-            return { ...state, error: action.message, authenticated: false }
+            return { ...state, error: action.payload.err }
         default: 
             return state
     }

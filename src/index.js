@@ -3,7 +3,7 @@ import { name as appName } from '../app.json';
 import React, { Component } from 'react';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
@@ -15,7 +15,7 @@ const logger = createLogger({
     duration: true,
 })
 
-const store = createStore(reducers, applyMiddleware(reduxThunk, logger))
+const store = createStore( reducers, compose(applyMiddleware(reduxThunk, logger)))
 
 class Main extends Component {
     render() {
