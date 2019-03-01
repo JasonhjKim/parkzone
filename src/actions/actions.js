@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './constants'
 
 const instance = axios.create({
-    baseURL: '159.65.69.12:3000',
+    baseURL: 'http://159.65.69.12:3000',
     timeout: 1000,
 })
 
@@ -43,4 +43,34 @@ export const loginUser = (payload) => {
 export const logoutUser = () => {
     AsyncStorage.removeItem('token')
     return (dispatch) => dispatch({ type: UNAUTH_USER })
+}
+
+export const registerUser = ({ email , password }) => {
+    return (dispatch) => {
+        axios.post('http://159.65.69.12:3000/register', { email:email, password:password})
+        .then(response => {
+            dispatch(
+                {
+                    type: AUTH_USER,
+                    status,
+                    payload: {
+                        _id: response.data._id,
+                        token: response.data.token,
+                    }
+                }
+            )
+        })
+        .catch(error => {
+            dispatch(
+                {
+                    type: AUTH_ERROR,
+                    status,
+                    payload: {
+                        err: data.err
+                    }
+                }
+            )
+        })
+
+    }
 }

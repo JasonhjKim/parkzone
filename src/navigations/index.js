@@ -2,8 +2,8 @@ import React from 'react';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Landing from '../screens/landing'
 import Login from '../screens/login'
-import Register from '../screens/register'
 import Example from '../screens/example'
+import Register from '../containers/registerContainer';
 
 
 const StackNavigator = createStackNavigator({

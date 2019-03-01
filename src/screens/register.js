@@ -1,26 +1,36 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableHighlight } from 'react-native';
 import styled from 'styled-components/native';
 import FullView from '../components/fullView';
 import StyledButton from '../components/button';
 import TextInput from '../components/textInput';
 import { primary } from '../commons/color';
+import { AsyncStorage } from 'react-native';
+import { T } from '../commons/fontSize';
+import { H1 } from '../commons/fontSize';
 
 export default class Register extends React.Component {
-    constructor(props) {
-        // define initial state of component; can bind event that occurs in component in constructor ex.this.state or this.handleEvent
-        super(props)
-        this.state = {
-            // only use this.state in constructor rather than this.setState
-            // represents what's currently on the screen 
-            email: '',
-            password: '',
-            reenter: '',
+    state = {
+        email: '',
+        password: '',
+        reenter: '',
+    }
+
+    validation = () => {
+        const { email, password, reenter } = this.state
+        if (email.indexOf('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/') === -1) {
+            this.setState ({ error: "email is not valid" })
+            console.log ("email sucks")
+            return false;
         }
+        if (password !==reenter) {
+            this.setState ({ error: "passwords do not match"})
+            console.log ("password sucks")
+            return false;
+        }
+        return true
     }
     
-    render() {
-        console.log ( this.props )        
+    render() {       
         return (
             <StyledFullView>
                 <TitleContainer>
@@ -30,6 +40,7 @@ export default class Register extends React.Component {
                     <TextContainer>
                         <TextInput 
                             title = "Email"
+                            type = 'emailAddress'
                             value = { this.state.email } 
                             // value sent to the payload 
                             onChangeText = { this.onChangeEmail }
@@ -37,18 +48,21 @@ export default class Register extends React.Component {
                         />
                         <TextInput
                             title = "Password"
+                            type = 'password'
                             value = { this.state.password }
-                            onChangeText = { this.onChangeEmail }
+                            onChangeText = { this.onChangePassword }
                         />
                         <TextInput 
                             title = "Re-enter Password"
+                            type = 'reenter'
                             value = { this.state.reenter }
-                            onChangeText = {this.onChangeEmail }
+                            onChangeText = { this.onChangeReenter }
                         />
                     </TextContainer>
-                    <StyledButton
+                    {this.state.error && <T>{this.state.error}</T>}
+                    <RegisterButton
                         title = "Register" 
-                        onPress = {() => this.props.navigation.navigate( "Landing" )}
+                        onPress = { this.handleSubmit }
                     />
                 </ChildContainer>
             </StyledFullView>
@@ -64,46 +78,54 @@ export default class Register extends React.Component {
         onChangePassword = ( password ) => {
             this.setState ({ password })
     }
-        onChangePassword = ( reenter ) => {
+        onChangeReenter = ( reenter ) => {
             this.setState ({ reenter })
     }
 
-    // register = () => {
-        // const payload = {
-            // password: this.state.password,
-            // reenter: this.state.reenter,
-        // }
-        // this.props.registerUser(payload)
-    // }
+    handleSubmit = () => {
+        if ( this.validation() === true ) {
+            this.register()
+        } 
+        console.log (this.props)
+    }
+
+    register = () => {
+        const payload = {
+            email: this.state.email,
+            password: this.state.password,
+            // name: this.state.name,
+        }
+        this.props.signUpUser(payload)
+    }
     // this is where everything combines together into a payload, if there is valid between password and reenter then it will finish the register
 }
 
 const StyledFullView = styled( FullView )`
-    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
 `
 
 const TitleContainer = styled.View`
-    width: 305px;
-    margin: 15px 0;
-    flex-direction: column;
+    width: 85%;
 `
 
-const TitleText = styled.Text`
-    font: 45px roboto;
+const TitleText = styled( H1 )`
+    font-weight: normal;
+    margin: 6% 0;
     color: ${ primary };
 `
 
 const ChildContainer = styled.View`
-    width: auto;
+    width:auto;
     height: 260px;
     flex-direction: column;
     justify-content: space-between;
 `
-
 const TextContainer = styled.View`
-    height: 140px;
+    width: 85%;
     justify-content: space-between;
 `
 
+const RegisterButton = styled( StyledButton )`
+    margin: 12% 0;
+`

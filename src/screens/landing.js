@@ -30,16 +30,15 @@ export default class Landing extends React.Component {
 }
 
 const StyledFullView = styled( FullView )`
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 `
 const ChildContainer = styled.View`
     width: auto;
-    height:115px;
+    height: 115px;
     flex-direction: column;
     justify-content: space-between;
-    margin: 325px;
 `
 // const LogoContainer = styled.View`
     // width:100px;
