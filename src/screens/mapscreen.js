@@ -47,7 +47,7 @@ export default class MapScreen extends Component {
 
     getInterpolatedPoints() {
         const { fsc, ssc } = this.state
-        axios.get(`https://roads.googleapis.com/v1/snapToRoads?path=${fsc.latitude},${fsc.longitude}|${ssc.latitude},${ssc.longitude}&interpolate=true&key=AIzaSyBjbezlOVtrycRwCCRVj5q0qWm0pU-wSEQ`)
+        axios.get(`https://roads.googleapis.com/v1/snapToRoads?path=${fsc.latitude},${fsc.longitude}|${ssc.latitude},${ssc.longitude}&interpolate=true&key=`)
             .then((result) => {
                 console.log(result);
                 return result.data.snappedPoints;
