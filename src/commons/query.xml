@@ -1,0 +1,12 @@
+<osm-script output="json">
+  <query into="minor" type="way">
+    <has-kv k="highway" modv="" regv="^(unclassified|residential|living_street|service)$"/>
+    <has-kv k="junction" modv="not" regv="roundabout" />
+    <bbox-query w="-123.11359763145447" e="-123.1115859746933" n="49.25056900708142" s="49.24772559691024"/>
+  </query>
+  <query into="_" type="node">
+    <recurse from="minor" type="way-node"/>
+  </query>
+  <print e="" from="_" geometry="skeleton" ids="yes" limit="" mode="body" n="" order="id" s="" w=""/>
+</osm-script>
+
